@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { BrowserRouter, Switch, Route, Link } from 'react-router-dom';
+import { BrowserRouter, Switch, Route, Link, Redirect } from 'react-router-dom';
+import 'bootstrap/dist/css/bootstrap.min.css'
+import './assets/css/swag.css'
 
 import * as ChatActions from './store/actions/chatActions';
+import auth from './components/pages/Auth';
+import Auth from './components/pages/Auth';
 
 class App extends Component {
   componentDidMount() {
@@ -15,17 +19,24 @@ class App extends Component {
           <Switch>
             <Route
               path="/login"
-              render={props => {
-                return (
-                  <h1>login</h1>
-                )
-              }} />
+              component={Auth}
+            />
+            <Route
+              path="/signup"
+              component={Auth}
+            />
             <Route
               path="/"
               render={props => {
-                return (
-                  <h1>Root</h1>
-                )
+                if(!this.props.token) {
+                  return (
+                    <Redirect to='/login' />
+                  )
+                }else {
+                  return (
+                    <h1>Root</h1>
+                  )
+                }
               }} />
           </Switch>
         </BrowserRouter>
