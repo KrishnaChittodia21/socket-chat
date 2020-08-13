@@ -1,3 +1,5 @@
+import * as AuthActions from './authActions';
+
 export const setUpSocket = () => {
   return dispatch => {
     const socket = new WebSocket('ws://localhost:8080');
@@ -6,6 +8,15 @@ export const setUpSocket = () => {
         type: 'SETUP_SOCKET',
         payload: socket
       })
+    }
+    socket.onmessage = (msg) => {
+      let data = JSON.parse(msg.data);
+      switch(data.type) {
+        case "LOGGEDIN":
+          dispatch(AuthActions.loggedIn(data))
+        default:
+          // do nothing
+      }
     }
   }
 }

@@ -24,17 +24,40 @@ class SignUp extends Component {
               <form onSubmit={ e => {
                 e.preventDefault();
                 if(this.props.socket) {
-                  
+                  let empty = 0;
+                  Object.keys(this.state).map(key => {
+                    if(this.state[key] === '' && key !== 'error'){
+                      empty += 1;
+                    }
+                  })
+                  if(empty>0){
+                    return this.setState({
+                      error: 'All fields are required'
+                    })
+                  }else {
+                    if(this.state.password !== this.state.passwordAgain) {
+                      return this.setState({
+                        error: 'Password must match'
+                      })
+                    }
+                  }
                   this.props.socket.send(JSON.stringify({
                     type: 'SIGNUP',
                     data: { 
                       email: this.state.email,
-                      password: this.state.password
+                      password: this.state.password,
+                      name: this.state.name,
+                      username: this.state.username
                     }
                   }))
                 }
               }}>
                 <p>Already have an account?<Link to="/login">Log in</Link></p>
+                {
+                  this.state.error ?
+                    <p className="text-danger">{this.state.error}</p>
+                  : null
+                }
                 <div className="row">
                   <div className="col-md-6">
                     <div className="form-group">
