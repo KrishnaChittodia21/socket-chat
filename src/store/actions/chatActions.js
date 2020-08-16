@@ -13,7 +13,14 @@ export const setUpSocket = () => {
       let data = JSON.parse(msg.data);
       switch(data.type) {
         case "LOGGEDIN":
-          dispatch(AuthActions.loggedIn(data))
+          dispatch(AuthActions.loggedIn(data));
+          break;
+        case "GOT_USERS":
+          dispatch({
+            type: "GOT_USERS",
+            payload: data.data.users
+          });
+          break;
         default:
           // do nothing
       }

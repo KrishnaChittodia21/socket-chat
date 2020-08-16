@@ -3,9 +3,45 @@ import { connect } from 'react-redux';
 import { withRouter, Link } from 'react-router-dom';
 
 class Sidebar extends Component {
+  state = {
+    search: ''
+  }
+
+  search = () => {
+    this.props.socket.send(JSON.stringify({
+      type: 'SEARCH',
+      data: this.state.search
+    }))
+  }
+
   render() {
     return (
       <div className="sidebar">
+        <div className="search-container">
+          <input className="form-control" placeholder="Search..." value={this.state.search} onChange={ e => {
+            this.setState({search: e.target.value})
+          }} />
+          <button className="btn btn-primary" onClick={ e => this.search()}>Search</button>
+        </div>
+        {
+          this.state.search ?
+          <ul className="thread-list">
+            <label>Results</label>
+            {
+              this.props.users.map((user, ui) => {
+                return (
+                  <li key={ui}>
+                    <Link to="/thread">
+                      <i className="zmdi zmdi-account-circle"/>
+                      <h5>{user.name}</h5>
+                      <p>{user.email}</p>
+                    </Link>
+                  </li>
+                )
+              })
+            }
+          </ul>
+          :
         <ul className="thread-list">
           <label>Messages</label>
           <li>
@@ -16,6 +52,7 @@ class Sidebar extends Component {
             </Link>
           </li>
         </ul>
+        }
       </div>
     )
   }
