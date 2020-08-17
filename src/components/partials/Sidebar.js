@@ -14,6 +14,13 @@ class Sidebar extends Component {
     }))
   }
 
+  findOrCreateThread = (id) => {
+    this.props.socket.send(JSON.stringify({
+      type: 'FIND_THREAD',
+      data: [this.props.user.id, id]
+    }))
+  }
+
   render() {
     return (
       <div className="sidebar">
@@ -28,14 +35,17 @@ class Sidebar extends Component {
           <ul className="thread-list">
             <label>Results</label>
             {
-              this.props.users.map((user, ui) => {
+              this.props.users.filter( u =>  u.id !== this.props.user.id).map((user, ui) => {
                 return (
                   <li key={ui}>
-                    <Link to="/thread">
+                    <a onClick={e => {
+                      e.preventDefault();
+                      this.findOrCreateThread(user.id)
+                    }}>
                       <i className="zmdi zmdi-account-circle"/>
                       <h5>{user.name}</h5>
                       <p>{user.email}</p>
-                    </Link>
+                    </a>
                   </li>
                 )
               })
@@ -44,13 +54,19 @@ class Sidebar extends Component {
           :
         <ul className="thread-list">
           <label>Messages</label>
-          <li>
-            <Link to="/thread">
-              <i className="zmdi zmdi-account-circle"/>
-              <h5>Name</h5>
-              <p>this is the last message</p>
-            </Link>
-          </li>
+          {
+            this.props.threads.map((thread, threadIndex) => {
+              return (
+                <li key={threadIndex}>
+                  <Link to={`/${thread.id}`}>
+                    <i className="zmdi zmdi-account-circle"/>
+                    <h5>{thread.id}</h5>
+                    <p>this is the last message</p>
+                  </Link>
+              </li>
+              )
+            })
+          }
         </ul>
         }
       </div>
