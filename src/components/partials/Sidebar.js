@@ -22,6 +22,7 @@ class Sidebar extends Component {
   }
 
   render() {
+    console.log(this.props)
     return (
       <div className="sidebar">
         <div className="search-container">

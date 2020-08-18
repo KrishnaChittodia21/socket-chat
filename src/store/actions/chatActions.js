@@ -1,13 +1,28 @@
 import * as AuthActions from './authActions';
 
-export const setUpSocket = () => {
+export const setUpSocket = (token, userId) => {
   return dispatch => {
     const socket = new WebSocket('ws://localhost:8080');
     socket.onopen = () => {
-      dispatch({
-        type: 'SETUP_SOCKET',
-        payload: socket
-      })
+      if(token){
+        //Already logged in user
+        socket.send(JSON.stringify({
+          type: 'CONNECT_WITH_TOKEN',
+          data: {
+            token,
+            userId
+          }
+        }))
+        dispatch({
+          type: 'SETUP_SOCKET',
+          payload: socket
+        })
+      } else {
+        dispatch({
+          type: 'SETUP_SOCKET',
+          payload: socket
+        })
+      }
     }
     socket.onmessage = (msg) => {
       let data = JSON.parse(msg.data);
@@ -24,6 +39,11 @@ export const setUpSocket = () => {
         case "ADD_THREAD":
           dispatch({
             type: "ADD_THREAD",
+            payload: data.data
+          })
+        case 'INITIAL_THREADS':
+          dispatch({
+            type: 'INITIAL_THREADS',
             payload: data.data
           })
         default:

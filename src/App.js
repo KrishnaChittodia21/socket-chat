@@ -11,7 +11,7 @@ import Auth from './components/pages/Auth';
 
 class App extends Component {
   componentDidMount() {
-    this.props.setUpSocket();
+    this.props.setUpSocket(this.props.token, this.props.user.id);
   }
   render () {
     return (
@@ -89,8 +89,8 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  setUpSocket: () => {
-    dispatch(ChatActions.setUpSocket())
+  setUpSocket: (token, userId) => {
+    dispatch(ChatActions.setUpSocket(token, userId))
   },
   logout: () => {
     dispatch(AuthActions.logout())
