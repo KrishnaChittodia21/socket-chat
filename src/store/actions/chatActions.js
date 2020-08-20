@@ -41,10 +41,29 @@ export const setUpSocket = (token, userId) => {
             type: "ADD_THREAD",
             payload: data.data
           })
+          break;
         case 'INITIAL_THREADS':
           dispatch({
             type: 'INITIAL_THREADS',
             payload: data.data
+          })
+          break;
+        case 'GOT_MESSAGES':
+          dispatch({
+            type: 'ADD_MESSAGES_TO_THREAD',
+            payload: {
+              threadId: data.threadId,
+              messages: data.messages
+            }
+          })
+          break;
+        case 'ADD_MESSAGE_TO_THREAD':
+          dispatch({
+            type: 'ADD_SINGLE_MESSAGE',
+            payload: {
+              threadId: data.threadId,
+              message: data.message
+            }
           })
         default:
           // do nothing
