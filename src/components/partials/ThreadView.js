@@ -31,7 +31,7 @@ class ThreadView extends Component {
 
   render() {
     return (
-      <div className="main-view">
+      <div className="main-view" id="main-view">
         {
           this.props.threads.filter(thread => thread.id === this.props.match.params.threadId).map((thread, i) => {
             return (

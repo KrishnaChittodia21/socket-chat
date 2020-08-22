@@ -30,20 +30,6 @@ const chat = (state = defaultState, action) => {
         ...state,
         threads: action.payload
       }
-    case 'ADD_MESSAGES_TO_THREAD':
-      return {
-        ...state,
-        threads: state.threads.map( t => {
-          if(t.id === action.payload.threadId) {
-            return {
-              ...t,
-              Messages: action.payload.messages.concat(t.Messages)
-            }
-          } else {
-            return t;
-          }
-        })
-      }
     case 'ADD_SINGLE_MESSAGE':
       return {
         ...state,
@@ -58,6 +44,21 @@ const chat = (state = defaultState, action) => {
           }
         })
       }
+    case 'ADD_MESSAGES_TO_THREAD':
+      return {
+        ...state,
+        threads: state.threads.map( t => {
+          if(t.id === action.payload.threadId) {
+            return {
+              ...t,
+              Messages: action.payload.messages.concat(t.Messages)
+            }
+          } else {
+            return t;
+          }
+        })
+      }
+    
     default:
       return state;
   }

@@ -64,7 +64,9 @@ export const setUpSocket = (token, userId) => {
               threadId: data.threadId,
               message: data.message
             }
-          })
+          });
+          document.getElementById('main-view').scrollTop =  document.getElementById('main-view').scrollHeight;
+          break;
         default:
           // do nothing
       }
