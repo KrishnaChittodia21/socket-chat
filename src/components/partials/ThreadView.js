@@ -37,7 +37,7 @@ class ThreadView extends Component {
             return (
               <div className="message-container" key={i}>
                 {
-                  thread.Messages.map((msg, mi) => {
+                  thread && thread.Messages && thread.Messages.map((msg, mi) => {
                     return(
                       <Message msg={msg} key={mi} profile={thread.profiles.filter(p=> p.id === msg.userId)[0]} />
                     )

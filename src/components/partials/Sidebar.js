@@ -60,7 +60,11 @@ class Sidebar extends Component {
                 <li key={threadIndex}>
                   <Link to={`/${thread.id}`}>
                     <i className="zmdi zmdi-account-circle"/>
-                    <h5>{thread.id}</h5>
+                    
+                      {
+                        thread.profiles && 
+                        <h5>{`${thread.profiles[0].name} & ${thread.profiles[1].name}`}</h5>
+                      }
                     <p>this is the last message</p>
                   </Link>
               </li>
