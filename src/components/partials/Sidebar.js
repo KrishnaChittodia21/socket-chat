@@ -31,7 +31,6 @@ class Sidebar extends Component {
           }} />
           <button className="col-md-2" onClick={ e => this.search()}><i className="fa fa-search" aria-hidden="true"></i></button>
           </div>
-         
         </div>
         {
           this.state.search ?
