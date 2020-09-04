@@ -25,10 +25,13 @@ class Sidebar extends Component {
     return (
       <div className="sidebar">
         <div className="search-container">
-          <input className="form-control" placeholder="Search..." value={this.state.search} onChange={ e => {
+          <div className="row">
+          <input className="form-control col-md-10" placeholder="Search..." value={this.state.search} onChange={ e => {
             this.setState({search: e.target.value})
           }} />
-          <button className="btn btn-primary" onClick={ e => this.search()}>Search</button>
+          <button className="col-md-2" onClick={ e => this.search()}><i className="fa fa-search" aria-hidden="true"></i></button>
+          </div>
+         
         </div>
         {
           this.state.search ?
@@ -57,13 +60,17 @@ class Sidebar extends Component {
           {
             this.props.threads.map((thread, threadIndex) => {
               return (
+                thread.profiles && thread.users.indexOf(this.props.user.id) > -1 &&
                 <li key={threadIndex}>
                   <Link to={`/${thread.id}`}>
                     <i className="zmdi zmdi-account-circle"/>
                     
                       {
-                        thread.profiles && 
-                        <h5>{`${thread.profiles[0].name} & ${thread.profiles[1].name}`}</h5>
+                        thread.profiles && thread.profiles.filter(u => u.id !== this.props.user.id).map((item) => {
+                          return (
+                            <h5>{item.name}</h5>
+                          )
+                        })
                       }
                     <p>this is the last message</p>
                   </Link>

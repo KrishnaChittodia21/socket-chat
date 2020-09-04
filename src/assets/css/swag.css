@@ -27,6 +27,10 @@
   top: 0px;
 }
 
+.sidebar .search-container .row {
+  margin-right: 0px;
+}
+
 .main-view {
   position: fixed;
   left: 300px;
