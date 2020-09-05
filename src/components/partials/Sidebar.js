@@ -22,6 +22,7 @@ class Sidebar extends Component {
   }
 
   render() {
+    console.log('==============', this.props)
     return (
       <div className="sidebar">
         <div className="search-container">
@@ -71,7 +72,12 @@ class Sidebar extends Component {
                           )
                         })
                       }
-                    <p>this is the last message</p>
+                    <p>
+                      {
+                        thread.Messages.length > 0 &&
+                        thread.Messages[thread.Messages.length -1].content
+                      }
+                    </p>
                   </Link>
               </li>
               )
