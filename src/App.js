@@ -16,10 +16,6 @@ class App extends Component {
   render () {
     return (
       <div className="App">
-        <button
-          onClick={e => {
-            this.props.logout();
-          }}>Logout</button>
         <BrowserRouter>
           <Switch>
             <Route

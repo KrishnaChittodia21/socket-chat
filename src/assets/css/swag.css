@@ -136,3 +136,9 @@ ul.thread-list label {
   margin: 0px 5px;
   color: #fff;
 }
+
+.logout-btn {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+}

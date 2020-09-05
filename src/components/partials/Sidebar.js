@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter, Link } from 'react-router-dom';
+import * as AuthActions from '../../store/actions/authActions';
 
 class Sidebar extends Component {
   state = {
@@ -21,8 +22,12 @@ class Sidebar extends Component {
     }))
   }
 
+  handleLogout = (e) => {
+    e.preventDefault();
+    this.props.logout();
+  }
+
   render() {
-    console.log('==============', this.props)
     return (
       <div className="sidebar">
         <div className="search-container">
@@ -85,6 +90,9 @@ class Sidebar extends Component {
           }
         </ul>
         }
+        <button className="btn btn-primary col-md-12 logout-btn" onClick={ e => this.handleLogout(e)}>
+          Logout
+        </button>
       </div>
     )
   }
@@ -95,9 +103,13 @@ const mapStateToProps = state => ({
   ...state.chat
 })
 
-const mapDispatchToProps = dispatch => ({
-
-})
+const mapDispatchToProps = dispatch => {
+  return {
+    logout: () => {
+      dispatch(AuthActions.logout())
+    }
+  }
+}
 
 export default connect(
   mapStateToProps,
