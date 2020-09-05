@@ -79,7 +79,7 @@ class Sidebar extends Component {
                       }
                     <p>
                       {
-                        thread.Messages.length > 0 &&
+                        thread.Messages &&
                         thread.Messages[thread.Messages.length -1].content
                       }
                     </p>
