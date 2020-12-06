@@ -17,7 +17,8 @@ class ChatInput extends Component {
       threadId: this.props.match.params.threadId,
       userId: this.props.user.id,
       content: this.state.content,
-      date: new Date()
+      date: new Date(),
+      username: this.props.user.name
     }
     this.props.socket.send(JSON.stringify({
       type: 'ADD_MESSAGE',

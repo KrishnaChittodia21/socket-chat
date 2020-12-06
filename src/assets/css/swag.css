@@ -142,3 +142,9 @@ ul.thread-list label {
   right: 0;
   bottom: 0;
 }
+
+.signed-name {
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 20px;
+}

@@ -6,7 +6,7 @@ class Message extends Component {
     return (
       <div className={`message-item ${this.props.msg.userId === this.props.user.id ? 'msg-right' : 'msg-left'}`}>
         <i className="zmdi zmdi-account-circle" />
-        <div className="chat-bubble" title={this.props.user.Profile.name}>
+        <div className="chat-bubble" title={this.props.msg.username}>
           {
             this.props.msg.content
           }

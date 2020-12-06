@@ -28,14 +28,16 @@ class Sidebar extends Component {
   }
 
   render() {
+    console.log(this.props);
     return (
       <div className="sidebar">
         <div className="search-container">
           <div className="row">
-          <input className="form-control col-md-10" placeholder="Search..." value={this.state.search} onChange={ e => {
-            this.setState({search: e.target.value})
-          }} />
-          <button className="col-md-2" onClick={ e => this.search()}><i className="fa fa-search" aria-hidden="true"></i></button>
+            <p className="signed-name">Signed in as: {this.props.user.name}</p>
+            <input className="form-control col-md-10" placeholder="Search..." value={this.state.search} onChange={ e => {
+              this.setState({search: e.target.value})
+            }} />
+            <button className="col-md-2" onClick={ e => this.search()}><i className="fa fa-search" aria-hidden="true"></i></button>
           </div>
         </div>
         {
